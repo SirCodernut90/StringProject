@@ -5,6 +5,9 @@ import java.util.*;
 public class Pokedex {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+
+        System.out.println("This program uses data taken from https://pokemondb.net/");
+
         Pokemon pokemon = new Pokemon();
         String pokemonName = "";
 
@@ -13,15 +16,12 @@ public class Pokedex {
             try {
                 System.out.print("Enter Pokémon name or \"quit\": "); // Get user input
                 pokemonName = input.nextLine();
-
                 if (pokemonName.equalsIgnoreCase("quit")) { // Quit program
                     loop = false;
                     break;
                 }
-
-                pokemon.setName(pokemonName);
-
                 pokemonName = pokemonName.trim().toLowerCase();
+
                 String webpageURL = "https://pokemondb.net/pokedex/" + pokemonName;
                 URL webpage = new URI(webpageURL).toURL(); // Creates a URL object
                 URLConnection connection = webpage.openConnection();
@@ -30,7 +30,6 @@ public class Pokedex {
                 while ((inputLine = reader.readLine()) != null) {
                     line += inputLine;
                 }
-
                 reader.close();
 
                 // Check base stats
@@ -41,12 +40,19 @@ public class Pokedex {
                     System.out.println("Total Base Stats: " + totalStats);
                 }
 
-                // Check type(s)
+                // Check type(s) and generation
                 position = 0;
-                position = line.indexOf("itype", position + 1);
+                position = line.indexOf("<em>"+ String.valueOf(pokemonName.charAt(0)).toUpperCase() + pokemonName.substring(1), position + 1);
                 if (position > -1) {
-                    String type = line.substring(position + 6, line.indexOf("\">", position + 1));
-                   System.out.println("Type: " + type.toUpperCase());
+                    String info = line.substring(position, line.indexOf("</abbr>", position + 1)); // Get all information in first sentence
+                    String type = info.substring(info.indexOf("/type/") + 6, info.indexOf("\" class=\"itype"));
+                    if (info.indexOf("/type/") != (info.lastIndexOf("/type/"))) { // Check if there is more than one type
+                        type = type + " + " + info.substring(info.lastIndexOf("/type/") + 6, info.lastIndexOf("\" class=\"itype"));
+                    }
+                    //System.out.println(info);
+                    int generation = Integer.parseInt(info.substring(info.indexOf("Generation") + 11));
+                    System.out.println("Type: " + type.toUpperCase());
+                    System.out.println("Introduced: " + "GENERATION " + generation);
                 }
 
             } catch (MalformedURLException e) {
