@@ -21,8 +21,19 @@ public class Pokedex {
                     break;
                 }
                 pokemonName = pokemonName.trim().toLowerCase();
+                pokemonName = String.valueOf(pokemonName.charAt(0)).toUpperCase() + pokemonName.substring(1); // Capitalize beginning of each word
+                if (pokemonName.contains(" ")) { // Has multiple spaces, capitalize
+                    int firstIndex = pokemonName.indexOf(" ");
+                    pokemonName = pokemonName.substring(0, firstIndex) + pokemonName.substring(firstIndex, firstIndex + 2).toUpperCase() + pokemonName.substring(firstIndex + 2);
+                }
+                System.out.println("Pokémon: " + pokemonName);
 
-                String webpageURL = "https://pokemondb.net/pokedex/" + pokemonName;
+                String webpageURL = "";
+                if (pokemonName.contains(" ")) { // Check if there is a space in the name, replace with "-" for URL
+                    webpageURL = "https://pokemondb.net/pokedex/" + pokemonName.replace(" ", "-").toLowerCase();
+                } else {
+                    webpageURL = "https://pokemondb.net/pokedex/" + pokemonName.toLowerCase();
+                }
                 URL webpage = new URI(webpageURL).toURL(); // Creates a URL object
                 URLConnection connection = webpage.openConnection();
         		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -42,7 +53,7 @@ public class Pokedex {
 
                 // Check type(s) and generation
                 position = 0;
-                position = line.indexOf("<em>"+ String.valueOf(pokemonName.charAt(0)).toUpperCase() + pokemonName.substring(1), position + 1);
+                position = line.indexOf("<em>" + pokemonName, position + 1);
                 if (position > -1) {
                     String info = line.substring(position, line.indexOf("</abbr>", position + 1)); // Get all information in first sentence
                     String type = info.substring(info.indexOf("/type/") + 6, info.indexOf("\" class=\"itype"));
@@ -52,7 +63,7 @@ public class Pokedex {
                     //System.out.println(info);
                     int generation = Integer.parseInt(info.substring(info.indexOf("Generation") + 11));
                     System.out.println("Type: " + type.toUpperCase());
-                    System.out.println("Introduced: " + "GENERATION " + generation);
+                    System.out.println("Introduced: " + "Generation " + generation);
                 }
 
             } catch (MalformedURLException e) {
