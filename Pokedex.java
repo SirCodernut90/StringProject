@@ -1,3 +1,4 @@
+// Import statements
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -14,9 +15,9 @@ public class Pokedex {
         boolean loop = true;
         while (loop) {
             try {
-                System.out.print("Enter Pokémon name or \"quit\": "); // Get user input
+                System.out.print("\nEnter Pokémon name or \"quit\": "); // Get user input
                 pokemonName = input.nextLine();
-                if (pokemonName.equalsIgnoreCase("quit")) { // Quit program
+                if (pokemonName.equalsIgnoreCase("quit") || pokemonName.equals(" ")) { // Quit program
                     loop = false;
                     break;
                 }
@@ -53,7 +54,7 @@ public class Pokedex {
 
                 // Check type(s) and generation
                 position = 0;
-                position = line.indexOf("<em>" + pokemonName, position + 1);
+                position = line.indexOf("<em>", position + 1);
                 if (position > -1) {
                     String info = line.substring(position, line.indexOf("</abbr>", position + 1)); // Get all information in first sentence
                     String type = info.substring(info.indexOf("/type/") + 6, info.indexOf("\" class=\"itype"));
