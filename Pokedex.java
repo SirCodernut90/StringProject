@@ -4,13 +4,14 @@ import java.io.*;
 import java.util.*;
 
 public class Pokedex {
+    public static Pokemon pokemon = new Pokemon();
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
+        String pokemonName = "";
+
         System.out.println("This program uses data taken from https://pokemondb.net/");
 
-        Pokemon pokemon = new Pokemon();
-        String pokemonName = "";
 
         boolean loop = true;
         while (loop) {
@@ -27,7 +28,6 @@ public class Pokedex {
                     int firstIndex = pokemonName.indexOf(" ");
                     pokemonName = pokemonName.substring(0, firstIndex) + pokemonName.substring(firstIndex, firstIndex + 2).toUpperCase() + pokemonName.substring(firstIndex + 2);
                 }
-                System.out.println("Pokémon: " + pokemonName);
 
                 String webpageURL = "";
                 if (pokemonName.contains(" ")) { // Check if there is a space in the name, replace with "-" for URL
@@ -35,6 +35,7 @@ public class Pokedex {
                 } else {
                     webpageURL = "https://pokemondb.net/pokedex/" + pokemonName.toLowerCase();
                 }
+
                 URL webpage = new URI(webpageURL).toURL(); // Creates a URL object
                 URLConnection connection = webpage.openConnection();
         		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -44,12 +45,14 @@ public class Pokedex {
                 }
                 reader.close();
 
+                pokemon.setName(pokemonName);
+
                 // Check base stats
                 int position = 0;
                 position = line.indexOf("cell-num cell-total", position + 1);
                 if (position > -1) {
                     int totalStats = Integer.parseInt(line.substring(position + 21, line.indexOf("</td>", position + 1)));
-                    System.out.println("Total Base Stats: " + totalStats);
+                    pokemon.setTotalStats(totalStats);
                 }
 
                 // Check type(s) and generation
@@ -63,9 +66,10 @@ public class Pokedex {
                     }
                     //System.out.println(info);
                     int generation = Integer.parseInt(info.substring(info.indexOf("Generation") + 11));
-                    System.out.println("Type: " + type.toUpperCase());
-                    System.out.println("Introduced: " + "Generation " + generation);
+                    pokemon.setType(type);
+                    pokemon.setGen(generation);
                 }
+                System.out.println(pokemon);
 
             } catch (MalformedURLException e) {
                 System.out.println("Malformed URL Exception found");
