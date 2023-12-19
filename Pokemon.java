@@ -36,6 +36,6 @@ public class Pokemon {
     }
 
     public String toString() {
-        return name + ":\n" + type.toUpperCase() + " type introduced in GENERATION " + generation + ".\nTotal Stats: " + totalStats;
+        return name + "\nType: " + type.toUpperCase() + "\nIntroduced: Generation " + generation + "\nTotal Stats: " + totalStats;
     }
 }
