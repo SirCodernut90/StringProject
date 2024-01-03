@@ -30,6 +30,10 @@ public class Pokemon {
         this.totalStats = totalStats;
     }
 
+    public void setEvolutions(String evolutions) {
+        this.evolutions = evolutions;
+    }
+
     // Getters
     public int getTotalStats() {
         return totalStats;

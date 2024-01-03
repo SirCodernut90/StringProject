@@ -123,10 +123,10 @@ public class Pokedex extends JFrame implements ActionListener {
 
         } catch (MalformedURLException exception) {
             display.setText("Malformed URL Exception found");
-            System.out.println("Malformed URL Exception found");
+//            System.out.println("Malformed URL Exception found");
         } catch (IOException exception) {
             display.setText("Pokémon not found");
-            System.out.println("Pokémon not found");
+//            System.out.println("Pokémon not found");
         } catch (URISyntaxException exception) {
             display.setText("Invalid name");
         }
