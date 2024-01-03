@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.imageio.*;
 
 public class Pokedex extends JFrame implements ActionListener {
+
+    // GUI fields for class
     private JTextField input;
     private JTextArea display;
     private JLabel imageThumb;
@@ -25,7 +27,7 @@ public class Pokedex extends JFrame implements ActionListener {
         // Input
         container.add(new JLabel("Pokémon name:"));
         input = new JTextField(10);
-        input.setBackground(Color.RED);
+        input.setBackground(Color.WHITE);
         input.addActionListener(this);
         container.add(input);
 
@@ -33,13 +35,15 @@ public class Pokedex extends JFrame implements ActionListener {
         display = new JTextArea(5, 22);
         display.setEditable(false);
         display.setBackground(Color.WHITE);
-        container.add(new JScrollPane(display, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
+        container.add(display);
 
         // Image
         imageThumb = new JLabel();
         imageThumb.setPreferredSize(new Dimension(120, 120));
         container.add(imageThumb);
+
+        // Other
+        container.add(new JTextArea("\nThis program uses data taken from https://pokemondb.net/"));
     }
 
     public void actionPerformed(ActionEvent e)  {
@@ -128,14 +132,13 @@ public class Pokedex extends JFrame implements ActionListener {
         }
     }
 
-
     public static Pokemon pokemon = new Pokemon();
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
         // Create window
         Pokedex window = new Pokedex();
-        window.setBounds(100, 100, 500, 200);
+        window.setBounds(100, 100, 500, 250);
         window.setDefaultCloseOperation(EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
