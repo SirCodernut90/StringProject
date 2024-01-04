@@ -6,7 +6,6 @@ public class Pokemon {
     private String name;
     private int generation;
     private String type;
-    private String evolutions;
     private int totalStats;
 
     public Pokemon() {
@@ -28,15 +27,6 @@ public class Pokemon {
 
     public void setTotalStats(int totalStats) {
         this.totalStats = totalStats;
-    }
-
-    public void setEvolutions(String evolutions) {
-        this.evolutions = evolutions;
-    }
-
-    // Getters
-    public int getTotalStats() {
-        return totalStats;
     }
 
     public String toString() {
