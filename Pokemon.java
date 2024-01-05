@@ -29,6 +29,23 @@ public class Pokemon {
         this.totalStats = totalStats;
     }
 
+    // Getters
+    public int getTotalStats() {
+        return totalStats;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGen() {
+        return generation;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     public String toString() {
         return name + "\nType: " + type.toUpperCase() + "\nIntroduced: Generation " + generation + "\nTotal Stats: " + totalStats;
     }

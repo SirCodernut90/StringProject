@@ -44,6 +44,8 @@ public class Pokedex extends JFrame implements ActionListener {
 
         // Other
         container.add(new JTextArea("\nThis program uses data taken from https://pokemondb.net/"));
+        container.add(new JTextArea("\nBuilt by Zachery Pan and Sanjay Srinath"));
+
     }
 
     public void actionPerformed(ActionEvent e)  {
@@ -138,7 +140,7 @@ public class Pokedex extends JFrame implements ActionListener {
 
         // Create window
         Pokedex window = new Pokedex();
-        window.setBounds(100, 100, 500, 250);
+        window.setBounds(100, 100, 500, 280);
         window.setDefaultCloseOperation(EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
